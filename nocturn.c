@@ -68,6 +68,7 @@ void nocturn_identify(t_nocturn *x);
 void nocturn_dblclick(t_nocturn *x);
 void nocturn_acant(t_nocturn *x);
 
+void nocturn_start_low(t_nocturn *x);
 void nocturn_start(t_nocturn *x);
 void nocturn_maxwindow(t_nocturn *x, long n);
 void nocturn_state(t_nocturn *x, long n);
@@ -107,6 +108,10 @@ void ext_main(void *r)
 }
 
 
+void nocturn_start_low(t_nocturn *x)                                              
+{
+	defer_low(x, (method)nocturn_start, NULL, 0, NULL);
+}
 
 void nocturn_start(t_nocturn *x)                                              /// START
 {
@@ -671,12 +676,12 @@ void *nocturn_new(t_symbol *s, long argc, t_atom *argv)                         
     t_nocturn *x = NULL; int i; int j;
         
     x = (t_nocturn *)object_alloc(nocturn_class);
-    object_post((t_object *)x, "11OLSEN.DE, 2020-06-23");
+    object_post((t_object *)x, "11OLSEN.DE 2020/08/24");
     
     // if ( argc > 0 && (argv + 0)->a_type == A_LONG && atom_getlong(argv+0) > 0 ) // positive first arg?
     
     // CLOCKS
-    x->retry_clock = clock_new((t_object *)x, (method)nocturn_start);
+    x->retry_clock = clock_new((t_object *)x, (method)nocturn_start_low);
     x->outlet_clock = clock_new((t_object *)x, (method)nocturn_feed_outlets);
     
     // OUTLETS, reverse order is important
