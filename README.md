@@ -1,7 +1,7 @@
 # 11nocturn
  A Max/Msp external using LibUSB to connect with a Novation Nocturn USB controller.
  
- As Mac OsX user, skip this.
+ To build on Mac with Xcode add CoreFoundation.framework, IOKit.framework and Security.framework to the project.  
  
  As PC/Windows user, we have to install the WinUSB driver for the Nocturn device. 
  It will replace the original driver by Novation and enable a connection with the C external.

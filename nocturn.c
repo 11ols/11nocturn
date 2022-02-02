@@ -676,7 +676,7 @@ void *nocturn_new(t_symbol *s, long argc, t_atom *argv)                         
     t_nocturn *x = NULL; int i; int j;
         
     x = (t_nocturn *)object_alloc(nocturn_class);
-    object_post((t_object *)x, "11OLSEN.DE 2020/08/24");
+    object_post((t_object *)x, "11OLSEN.DE 2022/02/02");
     
     // if ( argc > 0 && (argv + 0)->a_type == A_LONG && atom_getlong(argv+0) > 0 ) // positive first arg?
     
