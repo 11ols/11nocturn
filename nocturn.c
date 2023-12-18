@@ -369,7 +369,7 @@ void *nocturn_write(t_nocturn *x)                                       /// WRIT
 void *nocturn_read(t_nocturn *x)                                        /// READING-THREAD
 {
     unsigned char tmp[8];
-    int ret;
+    int actual_length;
     int error;
     int i;
     int oi;
@@ -378,7 +378,7 @@ void *nocturn_read(t_nocturn *x)                                        /// READ
     {
         memset(tmp, 0, sizeof(tmp));
         
-        error = libusb_interrupt_transfer(x->dev_handle, 0x81, tmp, sizeof(tmp), &ret, 0);
+        error = libusb_interrupt_transfer(x->dev_handle, 0x81, tmp, sizeof(tmp), &actual_length, 0);
         
         if (x->readthread_cancel) // test if we're being asked to die
             break;
@@ -412,7 +412,7 @@ void *nocturn_read(t_nocturn *x)                                        /// READ
             if (x->dataIn[i][0] == 0)// find free slot
             {
                //put data in and break
-                for (oi=0;oi<8;oi++)
+                for (oi=0; oi<actual_length; oi++)
                 {
                     x->dataIn[i][oi] = tmp[oi];
                 }
